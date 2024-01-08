@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OTPEmail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -102,6 +103,31 @@ class UserController extends Controller
        }
      }
 
+     public function sendOTP(Request $request){
+        
+        $email = $request->input('email');
+
+        $otp = rand(100000,999999);
+
+        $count=User::where('email','=',$email)->count();
+
+        if($count==1){
+
+            Mail::to($email)->send(new OTPEmail($otp));
+
+            User::where('email','=',$email)->update(['otp'=>$otp]);
+            return response()->json([
+                'status' => "success",
+                'message'=>"Authorized",
+                'otp'=>$otp
+            ],200);
+        }else{
+            return response()->json([
+                'status' => "OTP Failed",
+                'message'=>"Unauthorized"
+            ],401);
+        }
+     }
      function UserLogout(Request $request){
         $request->user()->tokens()->delete();
         return redirect('/user-Login');
