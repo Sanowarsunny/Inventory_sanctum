@@ -75,11 +75,38 @@ class UserController extends Controller
     public function userProfile(){
         return Auth::user();
      }
+     public function userUpdate(Request $request){
+       try{
+            $request->validate([
+                'firstName'=>'required|string|max:50',
+                'lastName'=>'required|string|max:50',
+            // 'email'=>'required|string|email|max:50|unique:users,email',
+                'mobile'=>'required|string|max:50',
+                'password'=>'required|string|max:3',               
+            ]);
+
+            $hashedPassword = Hash::make($request->input('password'));
+            $request->merge(['password' => $hashedPassword]);
+
+            User::where('id','=',Auth::id())->update($request->only(['firstName', 'lastName', 'mobile', 'password']));
+            return response()->json([
+                'status'=>'success',
+                'message'=>'Update success'
+               ]);
+       }
+       catch(Exception $e){
+        return response()->json([
+            'status'=>'fail',
+            'message'=>$e->getMessage()
+        ]);
+       }
+     }
 
      function UserLogout(Request $request){
         $request->user()->tokens()->delete();
         return redirect('/user-Login');
         
     }
+
 
 }

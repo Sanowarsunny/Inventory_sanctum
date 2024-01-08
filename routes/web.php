@@ -13,6 +13,7 @@ Route::view('/user-Login','pages.auth.login-page')->name('login');
             
 Route::post('/user-Registration',[UserController::class,'userRegistration']);
 Route::post('/user-Login',[UserController::class,'userLogin']);
+Route::get('/user-Update',[UserController::class,'userUpdate'])->middleware('auth:sanctum');
 
 
 //backend get api
