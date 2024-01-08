@@ -72,5 +72,14 @@ class UserController extends Controller
         return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
     }
     }
+    public function userProfile(){
+        return Auth::user();
+     }
+
+     function UserLogout(Request $request){
+        $request->user()->tokens()->delete();
+        return redirect('/user-Login');
+        
+    }
 
 }
