@@ -6,6 +6,8 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -28,7 +30,7 @@ class UserController extends Controller
             in the request data with the hashed password. It ensures that the hashed password 
             is used when creating the User instance in the User::create($request->input()) line.
             */
-            $request->pass(['password' => $hashedPassword]);
+            $request->merge(['password' => $hashedPassword]);
 
             User::create($request->input());
             return response()->json([
@@ -45,6 +47,30 @@ class UserController extends Controller
         }  
     }
 
+    public function userLogin(Request $request){
 
+       try{
+         $request->validate([
+            'email' => 'required|string|email|max:50',
+            'password' => 'required|string|min:3'
+        ]);
+
+        $user = User::where('email', $request->input('email'))->first();
+
+        //dd($user);
+
+        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
+        }
+
+
+
+        $token = $user->createToken('authToken')->plainTextToken;
+        return response()->json(['status' => 'success', 'message' => 'Login Successful','token'=>$token]);
+
+    }catch (Exception $e){
+        return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+    }
+    }
 
 }
