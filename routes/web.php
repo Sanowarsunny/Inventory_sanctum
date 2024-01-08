@@ -13,7 +13,10 @@ Route::view('/user-Login','pages.auth.login-page')->name('login');
             
 Route::post('/user-Registration',[UserController::class,'userRegistration']);
 Route::post('/user-Login',[UserController::class,'userLogin']);
-Route::post('/send-otp',[UserController::class,'sendOTP']);
+Route::post('/send-OTP',[UserController::class,'sendOTP']);
+Route::post('/verify-OTP',[UserController::class,'verifyOTP']);
+Route::post('/reset-Password',[UserController::class,'resetPassword'])->middleware('auth:sanctum');;
+
 
 
 
