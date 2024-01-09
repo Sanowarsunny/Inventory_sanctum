@@ -39,11 +39,11 @@
             }
             else{
                 showLoader();
-                let res=await axios.post("/user-login",{email:email, password:password});
+                let res=await axios.post("/user-Login",{email:email, password:password});
                 hideLoader()
                 if(res.status===200 && res.data['status']==='success'){
                     setToken(res.data['token'])
-                    window.location.href="/userProfile";
+                    window.location.href="/user-Profile";
                 }
                 else{
                     errorToast(res.data['message']);

@@ -5,7 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 
 //view page
-Route::view('/user-Login','pages.auth.login-page')->name('login');
+//Route::view('/user-Login','pages.auth.login-page')->name('login');
+//pages route
+Route::get('/userLogin',[UserController::class,'LoginPage'])->name('login');
+Route::get('/userRegistration',[UserController::class,'RegistrationPage']);
+Route::get('/sendOTP',[UserController::class,'SendOtpPage']);
+Route::get('/verifyOTP',[UserController::class,'VerifyOTPPage']);
+Route::get('/resetPassword',[UserController::class,'ResetPasswordPage'])->middleware('auth:sanctum');
+
+
+
 
 
 
@@ -15,7 +24,7 @@ Route::post('/user-Registration',[UserController::class,'userRegistration']);
 Route::post('/user-Login',[UserController::class,'userLogin']);
 Route::post('/send-OTP',[UserController::class,'sendOTP']);
 Route::post('/verify-OTP',[UserController::class,'verifyOTP']);
-Route::post('/reset-Password',[UserController::class,'resetPassword'])->middleware('auth:sanctum');;
+Route::post('/reset-Password',[UserController::class,'resetPassword'])->middleware('auth:sanctum');
 
 
 

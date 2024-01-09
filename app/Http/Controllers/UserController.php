@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\OTPEmail;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,30 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+
+    function LoginPage():View{
+        return view('pages.auth.login-page');
+    }
+    public function userProfile()
+    {
+        return view('pages.dashboard.profile-page');
+    }
+    function RegistrationPage():View{
+        return view('pages.auth.registration-page');
+    }
+    function SendOtpPage():View{
+        return view('pages.auth.send-otp-page');
+    }
+    function VerifyOTPPage():View{
+        return view('pages.auth.verify-otp-page');
+    }
+
+    function ResetPasswordPage():View{
+        return view('pages.auth.reset-pass-page');
+    }
+
+
+
     public function userRegistration(Request $request)
     {
 
@@ -77,10 +102,7 @@ class UserController extends Controller
             ]);
         }
     }
-    public function userProfile()
-    {
-        return Auth::user();
-    }
+    
     public function userUpdate(Request $request)
     {
         try {
