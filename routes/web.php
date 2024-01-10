@@ -22,8 +22,8 @@ Route::get('/user-Update',[UserController::class,'userUpdate'])->middleware('aut
 
 
 //backend post api route
-Route::post('/user-Registration',[UserController::class,'userRegistration']);
 Route::post('/user-Login',[UserController::class,'userLogin']);
+Route::post('/user-Registration',[UserController::class,'userRegistration']);
 Route::post('/send-OTP',[UserController::class,'sendOTP']);
 Route::post('/verify-OTP',[UserController::class,'verifyOTP']);
 Route::post('/reset-Password',[UserController::class,'resetPassword'])->middleware('auth:sanctum');

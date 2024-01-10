@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h4>ENTER OTP CODE</h4>
                     <br/>
-                    <label>4 Digit Code Here</label>
+                    <label>6 Digit Code Here</label>
                     <input id="otp" placeholder="Code" class="form-control" type="text"/>
                     <br/>
                     <button onclick="VerifyOtp()"  class="btn w-100 float-end bg-gradient-primary">Next</button>
@@ -22,7 +22,7 @@
        let postBody={"email":sessionStorage.getItem("email"), "otp":document.getElementById('otp').value}
 
        showLoader();
-       let res=await axios.post("/verify-otp",postBody);
+       let res=await axios.post("/verify-OTP",postBody);
        hideLoader()
 
        if(res.status===200 && res.data['status']==='success'){

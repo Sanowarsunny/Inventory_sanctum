@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
 
+    function UserLogout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return redirect('/userLogin');
+    }
+    //user Login view and form data(get and post)
+
     function LoginPage():View{
         return view('pages.auth.login-page');
     }
@@ -47,6 +54,8 @@ class UserController extends Controller
             ]);
         }
     }
+
+    //user profile view and form data(get and post)
     public function Profile()
     {
         return view('pages.dashboard.profile-page');
@@ -54,22 +63,11 @@ class UserController extends Controller
     function userProfile(Request $request){
         return Auth::user();
     }
+
+    //user registration view and form data(get and post)
     function RegistrationPage():View{
         return view('pages.auth.registration-page');
     }
-    function SendOtpPage():View{
-        return view('pages.auth.send-otp-page');
-    }
-    function VerifyOTPPage():View{
-        return view('pages.auth.verify-otp-page');
-    }
-
-    function ResetPasswordPage():View{
-        return view('pages.auth.reset-pass-page');
-    }
-
-
-
     public function userRegistration(Request $request)
     {
 
@@ -104,8 +102,6 @@ class UserController extends Controller
             ]);
         }
     }
-    
-    
     public function userUpdate(Request $request)
     {
         try {
@@ -132,7 +128,10 @@ class UserController extends Controller
             ]);
         }
     }
-
+    //user sendOTP view and form data(get and post)
+    function SendOtpPage():View{
+        return view('pages.auth.send-otp-page');
+    }
     public function sendOTP(Request $request)
     {
 
@@ -158,6 +157,11 @@ class UserController extends Controller
                 'message' => "Unauthorized"
             ], 401);
         }
+    }
+
+    //user verify view and form data(get and post)
+    function VerifyOTPPage():View{
+        return view('pages.auth.verify-otp-page');
     }
     function verifyOTP(Request $request)
     {
@@ -185,8 +189,7 @@ class UserController extends Controller
                             'message' => " OTP verify Success",
                             'token' => $token
                         ],
-                        200
-                    );
+                        200);
             } else {
                 return response()->json([
                     'status' => 'OTP verify fail',
@@ -201,6 +204,11 @@ class UserController extends Controller
         }
     }
 
+    //user resetPassword view and form data(get and post)
+
+    function ResetPasswordPage():View{
+        return view('pages.auth.reset-pass-page');
+    }
     function resetPassword(Request $request)
     {
         try {
@@ -228,9 +236,6 @@ class UserController extends Controller
             ]);
         }
     }
-    function UserLogout(Request $request)
-    {
-        $request->user()->tokens()->delete();
-        return redirect('/userLogin');
-    }
+
+    
 }

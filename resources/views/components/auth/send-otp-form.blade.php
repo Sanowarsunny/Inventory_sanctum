@@ -20,11 +20,11 @@
 
        let postBody={"email":document.getElementById('email').value,}
        showLoader();
-       let res=await axios.post("/send-otp",postBody);
+       let res=await axios.post("/send-OTP",postBody);
        hideLoader()
        if(res.status===200 && res.data['status']==='success'){
            sessionStorage.setItem("email",document.getElementById('email').value);
-           window.location.href="/verifyOtp";
+           window.location.href="/verifyOTP";
        }
        else{
            errorToast(res.data['message']);

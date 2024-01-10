@@ -23,11 +23,11 @@
       let postBody={"password":document.getElementById('password').value}
 
       showLoader();
-      let res=await axios.post("/reset-password",postBody,HeaderToken());
+      let res=await axios.post("/reset-Password",postBody,HeaderToken());
       hideLoader()
 
       if(res.status===200 && res.data['status']==='success'){
-          window.location.href="/userProfile";
+          window.location.href="/userLogin";
       }
       else{
           errorToast(res.data['message']);
