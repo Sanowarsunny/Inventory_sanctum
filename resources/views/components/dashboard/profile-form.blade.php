@@ -42,7 +42,7 @@
     async function getProfile(){
         try{
             showLoader();
-            let res=await axios.get("/user-profile",HeaderToken());
+            let res=await axios.get("/user-Profile",HeaderToken());
             hideLoader();
             document.getElementById('email').value=res.data['email'];
             document.getElementById('firstName').value=res.data['firstName']

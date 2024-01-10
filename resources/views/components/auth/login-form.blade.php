@@ -27,7 +27,7 @@
 
 <script>
 
-  async function SubmitLogin() {
+async function SubmitLogin() {
             let email=document.getElementById('email').value;
             let password=document.getElementById('password').value;
 
@@ -43,12 +43,13 @@
                 hideLoader()
                 if(res.status===200 && res.data['status']==='success'){
                     setToken(res.data['token'])
-                    window.location.href="/user-Profile";
+                    window.location.href="/userProfile";
                 }
                 else{
                     errorToast(res.data['message']);
                 }
             }
     }
+
 
 </script>

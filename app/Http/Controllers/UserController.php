@@ -17,9 +17,42 @@ class UserController extends Controller
     function LoginPage():View{
         return view('pages.auth.login-page');
     }
-    public function userProfile()
+    public function userLogin(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'email' => 'required|string|email|max:50',
+                'password' => 'required|string|min:3'
+            ]);
+
+            $user = User::where('email', $request->input('email'))->first();
+
+            //dd($user);
+
+            if (!$user || !Hash::check($request->input('password'), $user->password)) {
+                return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
+            }
+
+            $token = $user->createToken('authToken')->plainTextToken;
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Login Successful',
+                'token' => $token
+            ],200);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+    public function Profile()
     {
         return view('pages.dashboard.profile-page');
+    }
+    function userProfile(Request $request){
+        return Auth::user();
     }
     function RegistrationPage():View{
         return view('pages.auth.registration-page');
@@ -71,37 +104,7 @@ class UserController extends Controller
             ]);
         }
     }
-
-    public function userLogin(Request $request)
-    {
-
-        try {
-            $request->validate([
-                'email' => 'required|string|email|max:50',
-                'password' => 'required|string|min:3'
-            ]);
-
-            $user = User::where('email', $request->input('email'))->first();
-
-            //dd($user);
-
-            if (!$user || !Hash::check($request->input('password'), $user->password)) {
-                return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
-            }
-
-            $token = $user->createToken('authToken')->plainTextToken;
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Login Successful',
-                'token' => $token
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => $e->getMessage()
-            ]);
-        }
-    }
+    
     
     public function userUpdate(Request $request)
     {
@@ -228,6 +231,6 @@ class UserController extends Controller
     function UserLogout(Request $request)
     {
         $request->user()->tokens()->delete();
-        return redirect('/user-Login');
+        return redirect('/userLogin');
     }
 }
