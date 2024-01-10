@@ -108,9 +108,7 @@ class UserController extends Controller
             $request->validate([
                 'firstName' => 'required|string|max:50',
                 'lastName' => 'required|string|max:50',
-                // 'email'=>'required|string|email|max:50|unique:users,email',
                 'mobile' => 'required|string|max:50',
-                'password' => 'required|string|max:3',
             ]);
 
             $hashedPassword = Hash::make($request->input('password'));
@@ -128,6 +126,7 @@ class UserController extends Controller
             ]);
         }
     }
+
     //user sendOTP view and form data(get and post)
     function SendOtpPage():View{
         return view('pages.auth.send-otp-page');
@@ -205,7 +204,6 @@ class UserController extends Controller
     }
 
     //user resetPassword view and form data(get and post)
-
     function ResetPasswordPage():View{
         return view('pages.auth.reset-pass-page');
     }

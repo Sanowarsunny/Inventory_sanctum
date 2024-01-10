@@ -62,14 +62,14 @@
             "mobile":document.getElementById('mobile').value,
         }
         showLoader();
-        let res=await axios.post("/user-update",PostBody,HeaderToken());
+        let res=await axios.post("/user-Update",PostBody,HeaderToken());
         hideLoader();
         if(res.data['status']==="success"){
             successToast(res.data['message'])
             await getProfile();
         }
         else {
-            successToast(res.data['message'])
+            errorToast(res.data['message'])
         }
 
 
