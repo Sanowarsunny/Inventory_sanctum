@@ -44,8 +44,6 @@
 
   async function onRegistration() {
 
-
-
             let postBody={
                 "firstName":document.getElementById('firstName').value,
                 "lastName":document.getElementById('lastName').value,
@@ -55,7 +53,7 @@
             }
 
               showLoader();
-              let res=await axios.post("/user-registration",postBody);
+              let res=await axios.post("/user-Registration",postBody);
               hideLoader()
               if(res.status===200 && res.data['status']==='success'){
                   window.location.href="/userLogin";

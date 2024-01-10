@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/userLogin',[UserController::class,'LoginPage'])->name('login');
 Route::get('/logout',[UserController::class,'UserLogout'])->middleware('auth:sanctum');
 Route::get('/userProfile',[UserController::class,'Profile']);
-
 Route::get('/userRegistration',[UserController::class,'RegistrationPage']);
 Route::get('/sendOTP',[UserController::class,'SendOtpPage']);
 Route::get('/verifyOTP',[UserController::class,'VerifyOTPPage']);
@@ -23,8 +22,8 @@ Route::get('/user-Update',[UserController::class,'userUpdate'])->middleware('aut
 
 
 //backend post api route
-Route::post('/user-Login',[UserController::class,'userLogin']);
 Route::post('/user-Registration',[UserController::class,'userRegistration']);
+Route::post('/user-Login',[UserController::class,'userLogin']);
 Route::post('/send-OTP',[UserController::class,'sendOTP']);
 Route::post('/verify-OTP',[UserController::class,'verifyOTP']);
 Route::post('/reset-Password',[UserController::class,'resetPassword'])->middleware('auth:sanctum');
