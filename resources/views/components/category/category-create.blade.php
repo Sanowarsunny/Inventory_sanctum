@@ -31,7 +31,7 @@
             let categoryName = document.getElementById('categoryName').value;
             document.getElementById('modal-close').click();
             showLoader();
-            let res = await axios.post("/create-category",{name:categoryName},HeaderToken())
+            let res = await axios.post("/create-Category",{name:categoryName},HeaderToken())
             hideLoader();
 
             if(res.data['status']==="success"){
