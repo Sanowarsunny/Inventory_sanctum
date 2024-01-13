@@ -60,7 +60,7 @@
                     <a href="{{url('/userProfile')}}" class="side-bar-item">
                         <span class="side-bar-item-caption">Profile</span>
                     </a>
-                    <a onclick="logout()" href="{{url("/logout")}}" class="side-bar-item">
+                    <a href="{{url("/logout")}}" class="side-bar-item">
                         <span class="side-bar-item-caption">Logout</span>
                     </a>
                 </div>
@@ -118,11 +118,7 @@
 
 
 <script>
-    function logout() {
-            // Call the function to clear local storage
-            clearLocalStorage();
-            
-        }
+   
     function MenuBarClickHandler() {
         let sideNav = document.getElementById('sideNavRef');
         let content = document.getElementById('contentRef');
@@ -137,7 +133,13 @@
             content.classList.remove("content-expand");
             content.classList.add("content");
         }
+
     }
+    // function logout() {
+    //         // Call the function to clear local storage
+    //         clearLocalStorage();
+            
+    //     }
 </script>
 
 </body>

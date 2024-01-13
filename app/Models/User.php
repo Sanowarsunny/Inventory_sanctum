@@ -30,4 +30,5 @@ class User extends Authenticatable
         'otp'=>'0'
     ];
     
+    
 }
