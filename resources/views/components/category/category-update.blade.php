@@ -53,7 +53,7 @@
 
            document.getElementById('update-modal-close').click();
            showLoader();
-           let res = await axios.post("/update-category",{name:categoryName,id:updateID},HeaderToken())
+           let res = await axios.post("/category-Update",{name:categoryName,id:updateID},HeaderToken())
            hideLoader();
 
            if(res.data['status']==="success"){
