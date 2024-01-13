@@ -37,6 +37,9 @@ function unauthorized(code){
         window.location.href="/logout"
     }
 }
+function clearLocalStorage() {
+    localStorage.clear();
+}
 
 function setToken(token){
     localStorage.setItem("token",`Bearer ${token}`)
