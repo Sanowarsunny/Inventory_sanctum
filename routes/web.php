@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,9 @@ Route::post("/category-Delete",[CategoryController::class,'CategoryDelete'])->mi
 
 //category route
 
-Route::get('/categoryPage',[CategoryController::class,'categoryPage']);
-Route::post('/create-Category',[CategoryController::class,'createCategories'])->middleware('auth:sanctum');
-Route::get("/list-category",[CategoryController::class,'CategoryList'])->middleware('auth:sanctum');
-Route::post("/category-Update",[CategoryController::class,'CategoryUpdate'])->middleware('auth:sanctum');
-Route::post("/category-by-id",[CategoryController::class,'CategoryByID'])->middleware('auth:sanctum');
-Route::post("/category-Delete",[CategoryController::class,'CategoryDelete'])->middleware('auth:sanctum');
+Route::get('/customerPage',[CustomerController::class,'customerPage']);
+Route::get("/listCustomer",[CustomerController::class,'listCustomer'])->middleware('auth:sanctum');
+Route::post('/createCustomer',[CustomerController::class,'createCustomer'])->middleware('auth:sanctum');
+Route::post("/customerUpdate",[CustomerController::class,'customerUpdate'])->middleware('auth:sanctum');
+Route::post("/customerById",[CustomerController::class,'customerByID'])->middleware('auth:sanctum');
+Route::post("/customerDelete",[CustomerController::class,'customerDelete'])->middleware('auth:sanctum');
