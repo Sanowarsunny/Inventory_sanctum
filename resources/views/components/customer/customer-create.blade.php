@@ -40,7 +40,7 @@
 
             document.getElementById('modal-close').click();
             showLoader();
-            let res = await axios.post("/create-customer",{name:customerName,email:customerEmail,mobile:customerMobile},HeaderToken())
+            let res = await axios.post("/createCustomer",{name:customerName,email:customerEmail,mobile:customerMobile},HeaderToken())
             hideLoader();
 
             if(res.data['status']==="success"){
