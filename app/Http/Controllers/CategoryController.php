@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    //
     public function categoryPage(){
         return view('pages.dashboard.category-page');
     }
