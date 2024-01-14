@@ -11,6 +11,8 @@
                 </div>
             </div>
             <hr class="bg-dark "/>
+            <div class="table-responsive">
+
             <table class="table" id="tableData">
                 <thead>
                 <tr class="bg-light">
@@ -25,6 +27,7 @@
 
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

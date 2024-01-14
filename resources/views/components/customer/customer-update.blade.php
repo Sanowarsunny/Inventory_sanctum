@@ -39,7 +39,7 @@
         try {
             document.getElementById('updateID').value=id;
             showLoader();
-            let res=await axios.post("/customer-by-id",{id:id},HeaderToken())
+            let res=await axios.post("/customerById",{id:id},HeaderToken())
             hideLoader();
             document.getElementById('customerNameUpdate').value=res.data['rows']['name'];
             document.getElementById('customerEmailUpdate').value=res.data['rows']['email'];
@@ -61,7 +61,7 @@
 
             document.getElementById('update-modal-close').click();
             showLoader();
-            let res = await axios.post("/update-customer",{name:customerName,email:customerEmail,mobile:customerMobile,id:updateID},HeaderToken())
+            let res = await axios.post("/customerUpdate",{name:customerName,email:customerEmail,mobile:customerMobile,id:updateID},HeaderToken())
             hideLoader();
 
             if(res.data['status']==="success"){

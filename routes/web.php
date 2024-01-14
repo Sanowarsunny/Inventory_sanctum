@@ -44,6 +44,6 @@ Route::post("/category-Delete",[CategoryController::class,'CategoryDelete'])->mi
 Route::get('/customerPage',[CustomerController::class,'customerPage']);
 Route::get("/listCustomer",[CustomerController::class,'listCustomer'])->middleware('auth:sanctum');
 Route::post('/createCustomer',[CustomerController::class,'createCustomer'])->middleware('auth:sanctum');
-Route::post("/customerUpdate",[CustomerController::class,'customerUpdate'])->middleware('auth:sanctum');
 Route::post("/customerById",[CustomerController::class,'customerByID'])->middleware('auth:sanctum');
+Route::post("/customerUpdate",[CustomerController::class,'customerUpdate'])->middleware('auth:sanctum');
 Route::post("/customerDelete",[CustomerController::class,'customerDelete'])->middleware('auth:sanctum');
