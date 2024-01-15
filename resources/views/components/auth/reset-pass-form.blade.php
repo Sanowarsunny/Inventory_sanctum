@@ -19,19 +19,28 @@
 </div>
 
 <script>
-  async function ResetPass() {
-      let postBody={"password":document.getElementById('password').value}
+    async function ResetPass() {
+        let password = document.getElementById('password').value;
+        let cpassword = document.getElementById('cpassword').value;
 
-      showLoader();
-      let res=await axios.post("/reset-Password",postBody,HeaderToken());
-      hideLoader()
+        if (password === cpassword) {
+            showLoader();
+            let postBody = { "password": password };
 
-      if(res.status===200 && res.data['status']==='success'){
-          window.location.href="/userLogin";
-      }
-      else{
-          errorToast(res.data['message']);
-      }
+            try {
+                let res = await axios.post("/reset-Password", postBody, HeaderToken());
+                hideLoader();
 
+                if (res.status === 200 && res.data['status'] === 'success') {
+                    window.location.href = "/userLogin";
+                } else {
+                    errorToast(res.data['message']);
+                }
+            } catch (error) {
+                errorToast(error.message);
+            }
+        } else {
+            errorToast("Password and Confirm Password do not match");
+        }
     }
 </script>

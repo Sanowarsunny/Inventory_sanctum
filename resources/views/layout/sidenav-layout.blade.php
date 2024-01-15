@@ -60,7 +60,7 @@
                     <a href="{{url('/userProfile')}}" class="side-bar-item">
                         <span class="side-bar-item-caption">Profile</span>
                     </a>
-                    <a  href="{{route("logout")}}" class="side-bar-item">
+                    <a  onclick=logout() class="side-bar-item">
                         <span class="side-bar-item-caption">Logout</span>
                     </a>
                 </div>
@@ -135,11 +135,19 @@
         }
 
     }
-    // function logout() {
-    //         // Call the function to clear local storage
-    //         clearLocalStorage();
-            
-    //     }
+    
+    async function logout(){
+        try{
+            let res = await axios.get('/logout',HeaderToken());
+
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = '/userLogin';
+        }
+        catch (e){
+            errorToast(e.response.data.message);
+        }
+    }
    
 </script>
 
