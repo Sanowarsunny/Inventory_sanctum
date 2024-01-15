@@ -13,7 +13,7 @@ class CustomerController extends Controller
         return view('pages.dashboard.customer-page');
     }
 
-    function listCustomer(){
+    function listCustomer(Request $request){
         try{
             $user_id=Auth::id();
             $rows= Customer::where('user_id',$user_id)->get();
@@ -52,10 +52,10 @@ class CustomerController extends Controller
             return response()->json(['status' => 'success', 'rows' => $rows]);
 
         }
-        catch(Exception $e){
+        catch(Exception $exception){
             return response()->json([
                 'status'=>'fail',
-                'message'=>$e->getMessage()
+                'message'=>$exception->getMessage()
             ]);
         }
     }
@@ -83,10 +83,10 @@ class CustomerController extends Controller
                         ]);
 
         }
-        catch(Exception $e){
+        catch(Exception $exception){
             return response()->json([
                 'status'=>'fail',
-                'message'=>$e->getMessage()
+                'message'=>$exception->getMessage()
             ]);
         }
     }

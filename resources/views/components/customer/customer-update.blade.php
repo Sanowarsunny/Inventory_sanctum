@@ -35,49 +35,61 @@
 
 <script>
 
-    async function FillUpUpdateForm(id){
-        try {
-            document.getElementById('updateID').value=id;
-            showLoader();
-            let res=await axios.post("/customerById",{id:id},HeaderToken())
-            hideLoader();
-            document.getElementById('customerNameUpdate').value=res.data['rows']['name'];
-            document.getElementById('customerEmailUpdate').value=res.data['rows']['email'];
-            document.getElementById('customerMobileUpdate').value=res.data['rows']['mobile'];
-        }catch (e) {
-            unauthorized(e.response.status)
+async function FillUpUpdateForm(id) {
+    try {
+        document.getElementById('updateID').value = id;
+        showLoader();
+        let res = await axios.post("/customerById", { id: id }, HeaderToken());
+
+        hideLoader();
+        console.log(res.data);
+
+        if (res.data && res.data.status === "success" && res.data.rows) {
+            let customerData = res.data.rows;
+
+            document.getElementById('customerNameUpdate').value = customerData.name;
+            document.getElementById('customerEmailUpdate').value = customerData.email;
+            document.getElementById('customerMobileUpdate').value = customerData.mobile;
+        } else {
+            console.error("Invalid API response format in FillUpUpdateForm");
         }
+    } catch (e) {
+        handleApiError(e);
     }
+}
 
+async function Update() {
+    try {
+        let customerName = document.getElementById('customerNameUpdate').value;
+        let customerEmail = document.getElementById('customerEmailUpdate').value;
+        let customerMobile = document.getElementById('customerMobileUpdate').value;
+        let updateID = document.getElementById('updateID').value;
 
+        document.getElementById('update-modal-close').click();
+        showLoader();
+        let res = await axios.post("/customerUpdate", { name: customerName, email: customerEmail, mobile: customerMobile, id: updateID }, HeaderToken());
+        hideLoader();
 
-    async function Update() {
-
-        try {
-            let customerName = document.getElementById('customerNameUpdate').value;
-            let customerEmail = document.getElementById('customerEmailUpdate').value;
-            let customerMobile = document.getElementById('customerMobileUpdate').value;
-            let updateID = document.getElementById('updateID').value;
-
-            document.getElementById('update-modal-close').click();
-            showLoader();
-            let res = await axios.post("/customerUpdate",{name:customerName,email:customerEmail,mobile:customerMobile,id:updateID},HeaderToken())
-            hideLoader();
-
-            if(res.data['status']==="success"){
-                document.getElementById("update-form").reset();
-                successToast(res.data['message'])
-                await getList();
-            }
-            else{
-                errorToast(res.data['message'])
-            }
-
-        }catch (e) {
-            unauthorized(e.response.status)
+        if (res.data && res.data.status === "success") {
+            document.getElementById("update-form").reset();
+            successToast(res.data.message);
+            await getList();
+        } else {
+            console.error("Invalid API response format in Update");
         }
-
-
+    } catch (e) {
+        handleApiError(e);
     }
+}
+
+function handleApiError(error) {
+    if (error.response) {
+        unauthorized(error.response.status);
+    } else {
+        console.error("Unexpected error in API call:", error);
+    }
+}
+
+
 
 </script>
