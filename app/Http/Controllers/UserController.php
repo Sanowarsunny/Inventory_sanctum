@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
 
-    function UserLogout(Request $request)
-    {
-        $request->user()->tokens()->delete();
-        return redirect('/userLogin');
-    }
+    // function UserLogout(Request $request)
+    // {
+    //     $request->user()->tokens()->delete();
+    //     return redirect('/userLogin');
+    // }
+    
+
     //user Login view and form data(get and post)
 
     function LoginPage():View{

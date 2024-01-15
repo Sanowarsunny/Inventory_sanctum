@@ -12,7 +12,6 @@
             </div>
             <hr class="bg-dark "/>
             <div class="table-responsive">
-
             <table class="table" id="tableData">
                 <thead>
                 <tr class="bg-light">
@@ -36,7 +35,6 @@
 <script>
 
 getList();
-
 
 async function getList() {
 

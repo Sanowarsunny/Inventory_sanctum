@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 //pages route login
 Route::get('/userLogin',[UserController::class,'LoginPage'])->name('login');
-Route::get('/logout',[UserController::class,'UserLogout'])->middleware('auth:sanctum');
+Route::get('/logout',[UserController::class,'UserLogout'])->name('logout')->middleware('auth:sanctum');
 Route::get('/userProfile',[UserController::class,'Profile']);
 Route::get('/userRegistration',[UserController::class,'RegistrationPage']);
 Route::get('/sendOTP',[UserController::class,'SendOtpPage']);
