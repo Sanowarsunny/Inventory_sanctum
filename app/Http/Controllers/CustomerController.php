@@ -59,7 +59,6 @@ class CustomerController extends Controller
             ]);
         }
     }
-
     function customerUpdate(Request $request){
         try{
             $request->validate([
@@ -87,6 +86,26 @@ class CustomerController extends Controller
             return response()->json([
                 'status'=>'fail',
                 'message'=>$exception->getMessage()
+            ]);
+        }
+    }
+    function customerDelete(Request $request){
+
+        try{
+            Customer::where('id',$request->input('id'))
+            ->where('user_id',Auth::id())
+            ->delete();
+            return response()->json([
+                    'status' => 'success', 
+                    'message' => "Request Successful"
+            ]);
+            
+
+        }
+        catch(Exception $e){
+            return response()->json([
+                'status'=>'fail',
+                'message'=>$e->getMessage()
             ]);
         }
     }
