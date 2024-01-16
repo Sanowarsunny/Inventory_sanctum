@@ -12,7 +12,6 @@ class CustomerController extends Controller
     public function customerPage(){
         return view('pages.dashboard.customer-page');
     }
-
     function listCustomer(Request $request){
         try{
             $user_id=Auth::id();
