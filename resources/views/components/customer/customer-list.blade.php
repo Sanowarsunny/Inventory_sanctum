@@ -62,19 +62,12 @@ async function getList() {
             tableList.append(row);
         });
 
-        // $('.editBtn').on('click', async function () {
-        //     let id = $(this).data('id');
-        //     await FillUpUpdateForm(id);
-        //     $("#update-modal").modal('show');
-        // });
-        $('.editBtn').on('click',async function () {
-    console.log("Edit button clicked");
-    let id = $(this).data('id');
-    await FillUpUpdateForm(id);
-    $("#update-modal").modal('show');
-});
-
-
+        $('.editBtn').on('click', async function () {
+            let id = $(this).data('id');
+            await FillUpUpdateForm(id);
+            $("#update-modal").modal('show');
+        });
+      
         $('.deleteBtn').on('click', function () {
             let id = $(this).data('id');
             $("#delete-modal").modal('show');
@@ -87,12 +80,7 @@ async function getList() {
         });
 
     } catch (e) {
-        if (e.response) {
             unauthorized(e.response.status);
-        } else {
-            // Handle other non-Axios errors
-            console.error(e);
-        }
     }
 }
 
