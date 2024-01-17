@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class ProductController extends Controller
 {
     public function productPage():View{
@@ -33,7 +34,7 @@ class ProductController extends Controller
     public function createProduct(Request $request){
         //$user_id=$request->header('id');
         $user_id = Auth::id();
-        
+        //dd($user_id);
         // Prepare File Name & Path
         $img=$request->file('img');
 
