@@ -44,7 +44,7 @@
     </div>
 </div>
 
-
+{{-- 
 <script>
 
 
@@ -102,10 +102,10 @@
             }
 
             showLoader();
-            let res = await axios.post("/create-product",formData,config)
+            let res = await axios.post("/createProduct",formData,config)
             hideLoader();
 
-            if(res.status===201){
+            if(res.status===200){
                 successToast('Request completed');
                 document.getElementById("save-form").reset();
                 await getList();
@@ -115,4 +115,4 @@
             }
         }
     }
-</script>
+</script> --}}

@@ -36,18 +36,19 @@ getList();
 
 async function getList() {
 
-
     showLoader();
-    let res=await axios.get("/listProducts");
+    let res=await axios.get("/listProducts",HeaderToken());
     hideLoader();
+    //console.log(res);
 
     let tableList=$("#tableList");
     let tableData=$("#tableData");
 
     tableData.DataTable().destroy();
     tableList.empty();
+    //console.log(res);
 
-    res.data.forEach(function (item,index) {
+    res.data['rows'].forEach(function (item,index) {
         let row=`<tr>
                     <td><img class="w-15 h-auto" alt="" src="${item['img_url']}"></td>
                     <td>${item['name']}</td>

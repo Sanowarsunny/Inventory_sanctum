@@ -41,7 +41,6 @@ async function getList() {
         showLoader();
         let res = await axios.get("/listCustomer", HeaderToken());
         hideLoader();
-
         let tableList = $("#tableList");
         let tableData = $("#tableData");
 

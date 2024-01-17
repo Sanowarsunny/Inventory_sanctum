@@ -17,13 +17,7 @@ class ProductController extends Controller
         try{
              $user_id = Auth::id();
             $rows = Product::where('user_id',$user_id)->get();
-            return response()->json(
-                [
-                    'status'=>"success",
-                    'message'=>"Request Success",
-                    'rows'=>$rows
-                ]
-            );
+            return response()->json(['status' => 'success', 'rows' => $rows]);
         }
         catch(Exception $e){
             return response()->json(
@@ -36,5 +30,31 @@ class ProductController extends Controller
         }
     }
 
-    
+    public function createProduct(Request $request){
+        //$user_id=$request->header('id');
+        $user_id = Auth::id();
+        
+        // Prepare File Name & Path
+        $img=$request->file('img');
+
+        $t=time();
+        $file_name=$img->getClientOriginalName();
+        $img_name="{$user_id}-{$t}-{$file_name}";
+        $img_url="uploads/{$img_name}";
+
+
+        // Upload File
+        $img->move(public_path('uploads'),$img_name);
+
+
+        // Save To Database
+        return Product::create([
+            'name'=>$request->input('name'),
+            'price'=>$request->input('price'),
+            'unit'=>$request->input('unit'),
+            'img_url'=>$img_url,
+            'category_id'=>$request->input('category_id'),
+            'user_id'=>$user_id
+        ]);
+    }
 }
