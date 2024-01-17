@@ -32,7 +32,7 @@ Route::post('/reset-Password',[UserController::class,'resetPassword'])->middlewa
 
 //category route
 
-Route::get('/categoryPage',[CategoryController::class,'categoryPage'])->middleware('auth:sanctum');
+Route::get('/categoryPage',[CategoryController::class,'categoryPage']);
 Route::post('/create-Category',[CategoryController::class,'createCategories'])->middleware('auth:sanctum');
 Route::get("/list-category",[CategoryController::class,'CategoryList'])->middleware('auth:sanctum');
 Route::post("/category-Update",[CategoryController::class,'CategoryUpdate'])->middleware('auth:sanctum');
@@ -42,13 +42,19 @@ Route::post("/category-Delete",[CategoryController::class,'CategoryDelete'])->mi
 
 //category route
 
-Route::get('/customerPage',[CustomerController::class,'customerPage'])->middleware('auth:sanctum');
+Route::get('/customerPage',[CustomerController::class,'customerPage']);
 Route::get("/listCustomer",[CustomerController::class,'listCustomer'])->middleware('auth:sanctum');
 Route::post('/createCustomer',[CustomerController::class,'createCustomer'])->middleware('auth:sanctum');
 Route::post("/customerById",[CustomerController::class,'customerById'])->middleware('auth:sanctum');
 Route::post("/customerUpdate",[CustomerController::class,'customerUpdate'])->middleware('auth:sanctum');
 Route::post("/customerDelete",[CustomerController::class,'customerDelete'])->middleware('auth:sanctum');
 
+
 //product route
 
-Route::get('/productPage',[ProductController::class,'customerPage']);
+Route::get('/productPage',[ProductController::class,'ProductPage']);
+Route::get('/listProducts',[ProductController::class,'listProducts'])->middleware('auth:sanctum');
+Route::post('/createProduct',[ProductController::class,'createProduct'])->middleware('auth:sanctum');
+Route::post("/customerById",[ProductController::class,'customerById'])->middleware('auth:sanctum');
+Route::post("/customerUpdate",[ProductController::class,'customerUpdate'])->middleware('auth:sanctum');
+Route::post("/customerDelete",[ProductController::class,'customerDelete'])->middleware('auth:sanctum');

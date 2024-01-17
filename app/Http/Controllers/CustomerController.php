@@ -12,7 +12,7 @@ class CustomerController extends Controller
     public function customerPage(){
         return view('pages.dashboard.customer-page');
     }
-    function listCustomer(Request $request){
+    function listCustomer(){
         try{
             $user_id=Auth::id();
             $rows= Customer::where('user_id',$user_id)->get();
