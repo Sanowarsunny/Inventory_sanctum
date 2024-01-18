@@ -47,6 +47,8 @@
 
 <script>
 
+
+
     FillCategoryDropDown();
 
     async function FillCategoryDropDown(){
@@ -58,67 +60,54 @@
     }
 
     async function Save() {
-    // Get form values
     let productCategory = document.getElementById('productCategory').value;
     let productName = document.getElementById('productName').value;
     let productPrice = document.getElementById('productPrice').value;
     let productUnit = document.getElementById('productUnit').value;
     let productImg = document.getElementById('productImg').files[0];
 
-    // Validate form inputs
     if (productCategory.length === 0) {
         errorToast("Product Category Required !");
-        return;  // Return early to prevent further execution
     } else if (productName.length === 0) {
         errorToast("Product Name Required !");
-        return;
     } else if (productPrice.length === 0) {
         errorToast("Product Price Required !");
-        return;
     } else if (productUnit.length === 0) {
         errorToast("Product Unit Required !");
-        return;
     } else if (!productImg) {
         errorToast("Product Image Required !");
-        return;
-    }
+    } else {
+        document.getElementById('modal-close').click();
 
-    // Close the modal
-    document.getElementById('modal-close').click();
+        let formData = new FormData();
+        formData.append('img', productImg);
+        formData.append('name', productName);
+        formData.append('price', productPrice);
+        formData.append('unit', productUnit);
+        formData.append('category_id', productCategory);
 
-    // Create FormData object and append form data
-    let formData = new FormData();
-    formData.append('img', productImg);
-    formData.append('name', productName);
-    formData.append('price', productPrice);
-    formData.append('unit', productUnit);
-    formData.append('category_id', productCategory);
+        const config = {
+            headers: {
+                    'content-type': 'multipart/form-data',
+                }
+            };
 
-    // Configure Axios request headers
-    const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
+        showLoader();
+        try {
+            let res = await axios.post("/createProduct", formData, config);
+            hideLoader();
+
+            if (res.data['status'] === "success") {
+                successToast('Request completed');
+                document.getElementById("save-form").reset();
+                await getList();
+            } else {
+                errorToast("Request fail !");
+            }
+        } catch (error) {
+            console.error('Error during save:', error);
+            errorToast('An error occurred during save.');
         }
-    };
-
-    console.log(productCategory);
-    console.log(formData);
-
-    try {
-        // Make the Axios POST request
-        let res = await axios.post("/createProduct", formData, config);
-
-        // Check response status
-        if (res.status === 201) {
-            successToast('Request completed');
-            document.getElementById("save-form").reset();
-            await getList();
-        } else {
-            errorToast("Request failed!");
-        }
-    } catch (error) {
-        console.error('Error during save:', error);
-        errorToast('An error occurred during save.');
     }
 }
 
