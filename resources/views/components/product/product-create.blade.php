@@ -86,26 +86,19 @@
         formData.append('unit', productUnit);
         formData.append('category_id', productCategory);
 
-        const config = {
-            headers: {
-                    'content-type': 'multipart/form-data',
-                }
-            };
-
         showLoader();
         try {
-            let res = await axios.post("/createProduct", formData, config);
+            let res = await axios.post("/createProduct", formData,HeaderToken());
             hideLoader();
 
             if (res.data['status'] === "success") {
-                successToast('Request completed');
+                successToast('Product created successfully');
                 document.getElementById("save-form").reset();
                 await getList();
             } else {
                 errorToast("Request fail !");
             }
-        } catch (error) {
-            console.error('Error during save:', error);
+        } catch () {
             errorToast('An error occurred during save.');
         }
     }
