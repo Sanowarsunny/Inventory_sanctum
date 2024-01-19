@@ -98,7 +98,7 @@
             } else {
                 errorToast("Request fail !");
             }
-        } catch () {
+        } catch (error) {
             errorToast('An error occurred during save.');
         }
     }

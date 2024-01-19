@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\File;//for delete File image
 
 class ProductController extends Controller
 {
@@ -35,6 +35,14 @@ class ProductController extends Controller
     {
         try {
             $user_id = Auth::id();
+
+            $request->validate([
+                'name' => 'required|string|max:50',
+                'price' => 'required|string|max:50',
+                'unit' => 'required|string|max:11',
+                'img' => 'required|image|max:6048',
+                "category_id"=> 'required|string',
+            ]);
             // Prepare File Name & Path
             $img = $request->file('img');
             $t = time();
@@ -46,7 +54,7 @@ class ProductController extends Controller
             $img->move(public_path('uploads'), $img_name);
 
             // Save To Database
-            $product = Product::create([
+            Product::create([
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'unit' => $request->input('unit'),
@@ -58,6 +66,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Product created successfully',
+                
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -66,6 +75,12 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-    
+    public function productDelete(Request $request)
+    {
+        $user_id= Auth::id();
+        $product_id=$request->input('id');
+        $filePath=$request->input('file_path');
+        File::delete($filePath);
+        return Product::where('id',$product_id)->where('user_id',$user_id)->delete();
+    }
 }
