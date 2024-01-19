@@ -83,4 +83,63 @@ class ProductController extends Controller
         File::delete($filePath);
         return Product::where('id',$product_id)->where('user_id',$user_id)->delete();
     }
+    public function productById(Request $request){
+        try {
+            $user_id=Auth::id();
+            $request->validate(["id"=> 'required|string']);
+            $rows= Product::where('id',$request->input('id'))->where('user_id',$user_id)->first();
+            return response()->json(['status' => 'success', 'rows' => $rows]);
+        }catch (Exception $e){
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+
+    }
+    public function productUpdate(Request $request){
+        try {
+            $user_id=Auth::id();
+            
+            $product_id=$request->input('id');
+
+            if ($request->hasFile('img')) {
+    
+                // Upload New File
+                $img=$request->file('img');
+                $t=time();
+                $file_name=$img->getClientOriginalName();
+                $img_name="{$user_id}-{$t}-{$file_name}";
+                $img_url="uploads/{$img_name}";
+                $img->move(public_path('uploads'),$img_name);
+    
+                // Delete Old File
+                $filePath=$request->input('file_path');
+                File::delete($filePath);
+    
+                // Update Product
+    
+                Product::where('id',$product_id)->where('user_id',$user_id)->update([
+                    'name'=>$request->input('name'),
+                    'price'=>$request->input('price'),
+                    'unit'=>$request->input('unit'),
+                    'img_url'=>$img_url,
+                    'category_id'=>$request->input('category_id')
+                ]);
+    
+            }
+    
+            else {
+                 Product::where('id',$product_id)->where('user_id',$user_id)->update([
+                    'name'=>$request->input('name'),
+                    'price'=>$request->input('price'),
+                    'unit'=>$request->input('unit'),
+                    'category_id'=>$request->input('category_id'),
+                ]);
+
+            }
+                return response()->json(['status' => 'success', 'message' => "Request Successful"]);
+
+
+        }catch (Exception $e){
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+    }
 }

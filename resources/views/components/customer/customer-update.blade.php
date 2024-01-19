@@ -39,7 +39,7 @@ async function FillUpUpdateForm(id){
         try {
             id = String(id);
             //console.log("ID:", id);
-
+            
             document.getElementById('updateID').value=id;
             showLoader();
             let res=await axios.post("/customerById",{id:id},HeaderToken())

@@ -55,6 +55,6 @@ Route::post("/customerDelete",[CustomerController::class,'customerDelete'])->mid
 Route::get('/productPage',[ProductController::class,'ProductPage']);
 Route::get('/listProducts',[ProductController::class,'listProducts'])->middleware('auth:sanctum');
 Route::post('/createProduct',[ProductController::class,'createProduct'])->middleware('auth:sanctum');
-//Route::post("/productById",[ProductController::class,'productById'])->middleware('auth:sanctum');
-// Route::post("/customerUpdate",[ProductController::class,'customerUpdate'])->middleware('auth:sanctum');
+Route::post("/productById",[ProductController::class,'productById'])->middleware('auth:sanctum');
+Route::post("/productUpdate",[ProductController::class,'productUpdate'])->middleware('auth:sanctum');
 Route::post("/productDelete",[ProductController::class,'productDelete'])->middleware('auth:sanctum');

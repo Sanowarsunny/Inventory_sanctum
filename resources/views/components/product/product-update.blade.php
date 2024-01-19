@@ -52,11 +52,9 @@
 
 <script>
 
-
-
     async function UpdateFillCategoryDropDown(){
-        let res = await axios.get("/list-category")
-        res.data.forEach(function (item,i) {
+        let res = await axios.get("/list-category",HeaderToken())
+        res.data['rows'].forEach(function (item,i) {
             let option=`<option value="${item['id']}">${item['name']}</option>`
             $("#productCategoryUpdate").append(option);
         })
@@ -73,13 +71,13 @@
         showLoader();
         await UpdateFillCategoryDropDown();
 
-        let res=await axios.post("/product-by-id",{id:id})
+        let res=await axios.post("/productById",{id:id.toString()},HeaderToken())
         hideLoader();
 
-        document.getElementById('productNameUpdate').value=res.data['name'];
-        document.getElementById('productPriceUpdate').value=res.data['price'];
-        document.getElementById('productUnitUpdate').value=res.data['unit'];
-        document.getElementById('productCategoryUpdate').value=res.data['category_id'];
+        document.getElementById('productNameUpdate').value=res.data['rows']['name'];
+        document.getElementById('productPriceUpdate').value=res.data['rows']['price'];
+        document.getElementById('productUnitUpdate').value=res.data['rows']['unit'];
+        document.getElementById('productCategoryUpdate').value=res.data['rows']['category_id'];
 
     }
 
@@ -118,21 +116,15 @@
             formData.append('id',updateID)
             formData.append('name',productNameUpdate)
             formData.append('price',productPriceUpdate)
-            formData.append('unit',productNameUpdate)
+            formData.append('unit',productUnitUpdate)
             formData.append('category_id',productCategoryUpdate)
             formData.append('file_path',filePath)
 
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            }
-
             showLoader();
-            let res = await axios.post("/update-product",formData,config)
+            let res = await axios.post("/productUpdate",formData,HeaderToken())
             hideLoader();
 
-            if(res.status===200 && res.data===1){
+            if(res.data['status']==="success"){
                 successToast('Request completed');
                 document.getElementById("update-form").reset();
                 await getList();
