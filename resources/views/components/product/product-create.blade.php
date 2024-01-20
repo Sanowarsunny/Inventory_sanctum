@@ -47,8 +47,6 @@
 
 <script>
 
-
-
     FillCategoryDropDown();
 
     async function FillCategoryDropDown(){

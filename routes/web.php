@@ -58,3 +58,5 @@ Route::post('/createProduct',[ProductController::class,'createProduct'])->middle
 Route::post("/productById",[ProductController::class,'productById'])->middleware('auth:sanctum');
 Route::post("/productUpdate",[ProductController::class,'productUpdate'])->middleware('auth:sanctum');
 Route::post("/productDelete",[ProductController::class,'productDelete'])->middleware('auth:sanctum');
+
+Route::view('/salePage','pages.dashboard.sale-page');
