@@ -333,7 +333,7 @@
             }
             else{
                 showLoader();
-                let res=await axios.post("/invoice-create",Data,HeaderToken())
+                let res=await axios.post("/createInvoice",Data,HeaderToken())
                 hideLoader();
                 if(res.data['status']==="success"){
                     window.location.href='/invoicePage'

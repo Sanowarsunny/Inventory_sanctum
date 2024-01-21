@@ -42,7 +42,7 @@ async function getList() {
 
 
     showLoader();
-    let res=await axios.get("/invoice-select",HeaderToken());
+    let res=await axios.get("/listInvoice",HeaderToken());
     hideLoader();
 
     let tableList=$("#tableList");
