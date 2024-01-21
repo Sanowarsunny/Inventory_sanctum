@@ -64,6 +64,8 @@ Route::post("/productDelete",[ProductController::class,'productDelete'])->middle
 Route::get('/invoicePage',[InvoiceController::class,'invoicePage']);
 Route::get('/listInvoice',[InvoiceController::class,'listInvoice'])->middleware('auth:sanctum');
 Route::post('/createInvoice',[InvoiceController::class,'createInvoice'])->middleware('auth:sanctum');
+Route::post('/invoiceDetails',[InvoiceController::class,'invoiceDetails'])->middleware('auth:sanctum');
 Route::post('/invoiceDelete',[InvoiceController::class,'invoiceDelete'])->middleware('auth:sanctum');
 
+//sale page
 Route::view('/salePage','pages.dashboard.sale-page');

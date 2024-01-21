@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\InvoiceProduct;
 use Exception;
@@ -82,7 +83,38 @@ class InvoiceController extends Controller
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
+    public function invoiceDetails(Request $request){
+        try{
 
+            $user_id = Auth::id();
+
+            $customerDetails = Customer::where('user_id',$user_id)
+                                    ->where('id',$request->input('cus_id'))
+                                    ->first();
+
+            $invoiceTotal=Invoice::where('user_id','=',$user_id)
+                                    ->where('id',$request->input('inv_id'))
+                                    ->first();
+            
+            $invoiceProduct=InvoiceProduct::where('invoice_id',$request->input('inv_id'))
+                                    ->where('user_id',$user_id)->with('product')
+                                    ->get();
+            $rows = array(
+                'customer'=>$customerDetails,
+                'invoice'=>$invoiceTotal,
+                'product'=>$invoiceProduct
+
+            );
+            return response()->json(['status' => 'success', 'rows' => $rows]);
+            
+        }
+        catch(Exception $e){
+            return response()->json([
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ]);
+        }
+    }
     public function invoiceDelete(Request $request){
         DB::beginTransaction();
 

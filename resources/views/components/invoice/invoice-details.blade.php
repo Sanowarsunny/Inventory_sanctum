@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <span class="text-bold text-dark">BILLED TO </span>
-                                <p class="text-xs mx-0 my-1">Name:  <span id="CName"></span> </p>
+                                <p class="text-xs mx-0 my-1">Customer Name:  <span id="CName"></span> </p>
                                 <p class="text-xs mx-0 my-1">Email:  <span id="CEmail"></span></p>
                                 <p class="text-xs mx-0 my-1">User ID:  <span id="CId"></span> </p>
                             </div>
@@ -28,7 +28,7 @@
                                 <table class="table w-100" id="invoiceTable">
                                     <thead class="w-100">
                                     <tr class="text-xs text-bold">
-                                        <td>Name</td>
+                                        <td>Product Name</td>
                                         <td>Qty</td>
                                         <td>Total</td>
                                     </tr>
@@ -65,7 +65,7 @@
 
     async function InvoiceDetails(cus_id,inv_id) {
         showLoader()
-        let res=await axios.post("/invoice-details",{cus_id:cus_id,inv_id:inv_id},HeaderToken())
+        let res=await axios.post("/invoiceDetails",{cus_id:cus_id,inv_id:inv_id},HeaderToken())
         hideLoader();
 
         document.getElementById('CName').innerText=res.data['rows']['customer']['name']
