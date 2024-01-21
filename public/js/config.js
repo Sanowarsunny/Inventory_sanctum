@@ -58,3 +58,13 @@ function HeaderToken(){
         }
     }
 }
+
+function HeaderTokenWithBlob(){
+    let token=getToken();
+    return  {
+        responseType: 'blob',
+        headers: {
+            Authorization:token
+        }
+    }
+}

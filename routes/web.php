@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,6 @@ Route::post('/reset-Password',[UserController::class,'resetPassword'])->middlewa
 
 
 //category route
-
 Route::get('/categoryPage',[CategoryController::class,'categoryPage']);
 Route::post('/create-Category',[CategoryController::class,'createCategories'])->middleware('auth:sanctum');
 Route::get("/list-category",[CategoryController::class,'CategoryList'])->middleware('auth:sanctum');
@@ -41,7 +41,6 @@ Route::post("/category-Delete",[CategoryController::class,'CategoryDelete'])->mi
 
 
 //customer route
-
 Route::get('/customerPage',[CustomerController::class,'customerPage']);
 Route::get("/listCustomer",[CustomerController::class,'listCustomer'])->middleware('auth:sanctum');
 Route::post('/createCustomer',[CustomerController::class,'createCustomer'])->middleware('auth:sanctum');
@@ -51,13 +50,16 @@ Route::post("/customerDelete",[CustomerController::class,'customerDelete'])->mid
 
 
 //product route
-
 Route::get('/productPage',[ProductController::class,'ProductPage']);
 Route::get('/listProducts',[ProductController::class,'listProducts'])->middleware('auth:sanctum');
 Route::post('/createProduct',[InvoiceController::class,'createProduct'])->middleware('auth:sanctum');
 Route::post("/productById",[ProductController::class,'productById'])->middleware('auth:sanctum');
 Route::post("/productUpdate",[ProductController::class,'productUpdate'])->middleware('auth:sanctum');
 Route::post("/productDelete",[ProductController::class,'productDelete'])->middleware('auth:sanctum');
+
+
+//sale view page
+Route::view('/salePage','pages.dashboard.sale-page');
 
 
 //invoice route
@@ -67,5 +69,7 @@ Route::post('/createInvoice',[InvoiceController::class,'createInvoice'])->middle
 Route::post('/invoiceDetails',[InvoiceController::class,'invoiceDetails'])->middleware('auth:sanctum');
 Route::post('/invoiceDelete',[InvoiceController::class,'invoiceDelete'])->middleware('auth:sanctum');
 
-//sale page
-Route::view('/salePage','pages.dashboard.sale-page');
+
+//Report route
+Route::get('/reportPage',[ReportController::class,'reportPage']);
+Route::get("/salesReport/{FormDate}/{ToDate}",[ReportController::class,'SalesReport'])->middleware('auth:sanctum');
