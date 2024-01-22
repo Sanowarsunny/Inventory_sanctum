@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;//for delete File image
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {

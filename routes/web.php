@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
@@ -72,4 +73,10 @@ Route::post('/invoiceDelete',[InvoiceController::class,'invoiceDelete'])->middle
 
 //Report route
 Route::get('/reportPage',[ReportController::class,'reportPage']);
-Route::get("/salesReport/{FormDate}/{ToDate}",[ReportController::class,'SalesReport'])->middleware('auth:sanctum');
+Route::get('/salesReport/{FormDate}/{ToDate}',[ReportController::class,'SalesReport'])->middleware('auth:sanctum');
+
+
+//dashboard route
+
+Route::get('/dashboard',[DashboardController::class,'DashboardPage']);
+Route::get('/summary',[DashboardController::class,'Summary'])->middleware('auth:sanctum');
