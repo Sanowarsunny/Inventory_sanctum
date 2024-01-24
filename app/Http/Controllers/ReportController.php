@@ -43,7 +43,7 @@ class ReportController extends Controller
         ];
 
 
-        $pdf = Pdf::loadView('report.SalesReport',$data);
+        $pdf = Pdf::loadView('pages.report.SalesReport',$data);
 
 
         return $pdf->download('invoice.pdf');
